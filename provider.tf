@@ -8,6 +8,6 @@ terraform {
 }
 
 provider "google" {
-  project = "integral-sol-320907"
-  region  = "europe-west3" # Frankfurt (Closest to Berlin)
+  project = var.project_id
+  region  = var.region
 }
