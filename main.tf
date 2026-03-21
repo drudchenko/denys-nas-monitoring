@@ -44,7 +44,7 @@ resource "google_compute_instance" "monitoring_server" {
   boot_disk {
     initialize_params {
       image = "ubuntu-os-cloud/ubuntu-2204-lts"
-      size  = 10 # Your lean 10GB preference
+      size  = 10
     }
   }
 

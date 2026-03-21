@@ -26,8 +26,25 @@ The primary goal of this stack is to monitor high-level NAS operations:
 * **Resource Pressure:** Visualizing CPU and Memory usage during heavy photo processing workflows and automated backups.
 
 ## 🚀 Deployment
-1.  **Infrastructure:** Changes to `.tf` files in the `main` branch trigger an automated process that authenticates via WIF and applies changes to GCP.
-2.  **Edge Agent:** The local NAS runs the Google Ops Agent, configured to scrape local Prometheus metrics and "remote-write" them to the GCP endpoint.
+Deployment is performed manually from a local machine.
+
+1.  **Initialize Terraform:**
+    ```bash
+    terraform init
+    ```
+2.  **Plan Changes:**
+    ```bash
+    terraform plan
+    ```
+3.  **Apply Changes:**
+    ```bash
+    terraform apply
+    ```
+
+The local NAS runs the Google Ops Agent, configured to scrape local Prometheus metrics and "remote-write" them to the GCP endpoint.
+
+## 📜 Disclaimer
+This is an acknowledged overkill solution, created primarily as a technical exercise.
 
 ---
 *Developed by Denys as a demonstration of Hybrid-Cloud Infrastructure and Observability.*
