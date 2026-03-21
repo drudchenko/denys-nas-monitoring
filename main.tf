@@ -18,6 +18,9 @@ resource "google_project_service" "prometheus_api" {
 resource "google_compute_address" "static_ip" {
   name   = "grafana-static-ip"
   region = "europe-west3"
+
+  # Ensures the API is fully active before creating the address
+  depends_on = [google_project_service.compute_api]
 }
 
 # 3. Firewall: Open Port 3000 for Grafana
@@ -32,6 +35,9 @@ resource "google_compute_firewall" "allow_grafana" {
 
   source_ranges = var.source_ranges # Open to all; could be restricted to home IP for extra security.
   target_tags   = ["grafana"]
+
+  # Ensures the API is fully active before creating the firewall rule
+  depends_on = [google_project_service.compute_api]
 }
 
 # 4. The Monitoring Host (e2-micro VM)
