@@ -86,7 +86,20 @@ resource "google_project_iam_member" "grafana_monitoring_viewer" {
   member  = "serviceAccount:${google_compute_instance.monitoring_server.service_account[0].email}"
 }
 
-# 6. Output: The URL you will use to access your dashboard
+# 6. Identity: NAS Telemetry Service Account
+resource "google_service_account" "nas_monitor" {
+  account_id   = "nas-telemetry-exporter"
+  display_name = "NAS Telemetry Exporter"
+}
+
+# 7. Permissions: Allow the NAS to write metrics to the project
+resource "google_project_iam_member" "nas_metric_writer" {
+  project = var.project_id
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${google_service_account.nas_monitor.email}"
+}
+
+# 8. Output: The URL you will use to access your dashboard
 output "grafana_url" {
   value = "http://${google_compute_address.static_ip.address}:3000"
 }
