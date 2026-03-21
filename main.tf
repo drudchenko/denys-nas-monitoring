@@ -66,14 +66,14 @@ resource "google_compute_instance" "monitoring_server" {
     scopes = ["https://www.googleapis.com/auth/monitoring.read", "https://www.googleapis.com/auth/logging.write"]
   }
 
-  metadata_startup_script = <<-EOF
+metadata_startup_script = <<-EOF
     #!/bin/bash
     sudo apt-get update
     sudo apt-get install -y docker.io
     sudo systemctl start docker
     sudo systemctl enable docker
-    # Deploy Grafana; set to auto-restart if the VM reboots
-    sudo docker run -d -p 3000:3000 --name=grafana --restart=always grafana/grafana-oss
+    # Deploy Grafana; pinned to a stable version for plugin compatibility
+    sudo docker run -d -p 3000:3000 --name=grafana --restart=always grafana/grafana-oss:10.4.2
   EOF
 
   depends_on = [google_project_service.compute_api]
