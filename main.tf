@@ -73,7 +73,7 @@ metadata_startup_script = <<-EOF
     sudo systemctl start docker
     sudo systemctl enable docker
     # Deploy Grafana; pinned to a stable version for plugin compatibility
-    sudo docker run -d -p 3000:3000 --name=grafana --restart=always grafana/grafana-oss:10.4.2
+    sudo docker run -d -p 3000:3000 --name=grafana --restart=always grafana/grafana-oss:12.3.3
   EOF
 
   depends_on = [google_project_service.compute_api]
